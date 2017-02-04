@@ -1,1 +1,0 @@
-pm2 start self.js -f --name self
