@@ -1,13 +1,89 @@
+/*****
+PUT YOUR TOKEN HERE!!!
+*****/
+let token = "MTk3NTkyMjUwMzU0NDk5NTg0.Cy3_Qg.TlHDqQ7DWERZVrUG0Mf0By-0nvk"
+
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var fs = require('fs');
 var readline = require('readline');
+const ImagesClient = require('google-images');
 
+const shortcuts = new Map([
+  ["lenny", "( ͡° ͜ʖ ͡°)"],
+  ["shrug", "¯\\_(ツ)_/¯"],
+  ["tableflip", "(╯°□°）╯︵ ┻━┻"],
+  ["unflip", "┬──┬﻿ ノ( ゜-゜ノ)"],
+  ["nebula", "\🌌"],
+  ["complaint", "Please send all complaints to `/dev/null`!"]
+]);
 
-let targetedGuild = "252525368865456130";
-let targetGuild = "254746488993742850";
-let targetChannel = "274085775178596352";
+const textReplace = new Map([
+  ["~lenny~", "( ͡° ͜ʖ ͡°)"],
+  ["~shrug~", "¯\\_(ツ)_/¯"],
+  ["~tableflip~", "(╯°□°）╯︵ ┻━┻"],
+  ["~unflip~", "┬──┬﻿ ノ( ゜-゜ノ)"],
+  ["~nebula~", "\🌌"],
+  ["~complaint~", "Please send all complaints to `/dev/null`!"]
+]);
 
+const colors = new Map([
+  ["red", [255, 0, 0]],
+  ["green", [0, 255, 0]],
+  ["blue", [0, 0, 255]],
+  ["orange", [255, 144, 70]],
+  ["yellow", [255, 255, 0]],
+  ["cyan", [0, 255, 255]],
+  ["magenta", [255, 0, 255]],
+  ["white", [255, 255, 255]],
+  ["black", [1, 1, 1]],
+  ["gray", [128, 128, 128]],
+  ["pink", [255, 128, 255]],
+  ["purple", [120, 60, 220]]
+]);
+
+const textToEmoji = new Map([
+  ["a", ":regional_indicator_a:"],
+  ["b", ":regional_indicator_b:"],
+  ["c", ":regional_indicator_c:"],
+  ["d", ":regional_indicator_d:"],
+  ["e", ":regional_indicator_e:"],
+  ["f", ":regional_indicator_f:"],
+  ["g", ":regional_indicator_g:"],
+  ["h", ":regional_indicator_h:"],
+  ["i", ":regional_indicator_i:"],
+  ["j", ":regional_indicator_j:"],
+  ["k", ":regional_indicator_k:"],
+  ["l", ":regional_indicator_l:"],
+  ["m", ":regional_indicator_m:"],
+  ["n", ":regional_indicator_n:"],
+  ["o", ":regional_indicator_o:"],
+  ["p", ":regional_indicator_p:"],
+  ["q", ":regional_indicator_q:"],
+  ["r", ":regional_indicator_r:"],
+  ["s", ":regional_indicator_s:"],
+  ["t", ":regional_indicator_t:"],
+  ["u", ":regional_indicator_u:"],
+  ["v", ":regional_indicator_v:"],
+  ["w", ":regional_indicator_w:"],
+  ["x", ":regional_indicator_x:"],
+  ["y", ":regional_indicator_y:"],
+  ["z", ":regional_indicator_z:"],
+  ["!", ":grey_exclamation:"],
+  ["?", ":grey_question:"],
+  ["0", ":zero:"],
+  ["1", ":one:"],
+  ["2", ":two:"],
+  ["3", ":three:"],
+  ["4", ":four:"],
+  ["5", ":five:"],
+  ["6", ":six:"],
+  ["7", ":seven:"],
+  ["8", ":eight:"],
+  ["9", ":nine:"]
+]);
+
+let client = new ImagesClient('004497848346027955910:bvtye9dcwfc', 'AIzaSyApx3SNxIM9N1rALRy6CcbWVLZtzalFW1I');
 
 var botEnable = true;
 
@@ -20,37 +96,235 @@ bot.on('error', e => {
   console.error(e);
 });
 
+bot.on("guildCreate", guild => {
+
+});
+
+bot.on("guildMemberAdd", (member) => {
+
+});
+
 bot.on("message", msg => {
-  if (msg.guild.id == targetedGuild){
-    if (msg.content.toLowerCase().includes("mega") || msg.content.toLowerCase().includes("mewthree") || msg.content.toLowerCase().includes("nebby") || msg.content.toLowerCase().includes("nobby") || msg.content.toLowerCase().includes("azure") || msg.content.toLowerCase().includes("poosi") || msg.content.toLowerCase().includes("trapomine") || msg.content.toLowerCase().includes("mew") || msg.content.toLowerCase().includes("nebula")){
-      bot.guilds.get(targetGuild).channels.get(targetChannel).sendMessage("[" + msg.channel.name + "]: " + msg.author.username + ": " + msg.content);
-      bot.users.get("197592250354499584").sendMessage("[" + msg.channel.name + "]: " + msg.author.username + ": " + msg.content);
-    }
+  if(msg.author !== bot.user) return;
+
+  const msgContent = msg.content;
+  const newMsg = msgContent.split(" ").map(p=> textReplace.has(p) ? textReplace.get(p) : p).join(" ");
+  if(msg.content !== newMsg) {
+    msg.edit(newMsg);
   }
-  if (botEnable == true){
-    if (msg.guild.id == targetedGuild){
-      bot.guilds.get(targetGuild).channels.get(targetChannel).sendMessage("[" + msg.channel.name + "]: " + msg.author.username + ": " + msg.content);
-      if (msg.attachments.first()){
-        bot.guilds.get(targetGuild).channels.get(targetChannel).sendMessage("[" + msg.channel.name + "]: " + msg.author.username + ": " + msg.attachments.first().url);
-      }
-    }
-  }
-  if((msg.author.id != bot.user.id) && (msg.author.id != "197592250354499584")) return;
-  let prefix = "-";
+
+  let prefix = "~";
   let command =  ((msg.content.split(" "))[0]).replace(prefix, '');
   let args = msg.content.split(" ").slice(1);
   if(!msg.content.startsWith(prefix)) return;
+  if(!msg.author.id == "197592250354499584") return;
   if (command == "botenable"){
     botEnable = true;
     msg.channel.sendMessage("Bot enabled!");
   }
   if (botEnable == true){
 
+  if (command == "ping") {
+    msg.channel.sendMessage("Pong!").then((sent) => {
+      let t = sent.createdTimestamp - msg.createdTimestamp;
+      sent.edit("Pong! " + t + "ms");
+    });
+  }
+
+  else if (command == "imagesearch"){
+    client.search(args.join(" "))
+      .then(function (images) {
+         let array = images.slice(0,9);
+         if (!array[0]){
+           msg.channel.sendMessage("Error!");
+           return;
+         }
+         msg.channel.sendMessage(array[0].url);
+    });
+    commandUsed = true;
+  }
+
+  else if (command == "embed"){
+    /*const embed = new Discord.RichEmbed()
+      .setTitle('Very Nice Title')
+      .setAuthor('Author Name', 'https://goo.gl/rHndF5')
+    Alternatively, use '#00AE86', [0, 174, 134] or an integer number.
+      .setColor(0x00AE86)
+      .setDescription('The text of the body, essentially')
+      .setFooter('Nice text at the bottom', 'https://goo.gl/hkFYh0')
+      .setImage('https://goo.gl/D3uKk2')
+      .setThumbnail('https://goo.gl/lhc6ke')
+    Takes a Date object, defaults to current date.
+      .setTimestamp()
+      .setURL('https://discord.js.org/#/docs/main/indev/class/RichEmbed')
+      .addField('Field Title', 'Field Value')
+    Inline fields may not display as inline if the thumbnail and/or image is too big.
+      .addField('Inline Field', 'Hmm 🤔', true)
+    Blank field, useful to create some space.
+      .addField('\u200b', '\u200b', true);*/
+
+    let embed = new Discord.RichEmbed();
+    let argLength = args.length;
+    let flagUsed = false;
+    let title;
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    let text;
+    for (let i = 0; i < argLength; i++){
+      if (args[i] == "-text"){
+        let nextFlagExists = 0;
+        for (let j = i; j < argLength; j++){
+          if ((args[j] == "-r" || args[j] == "-g" || args[j] == "-b" || args[j] == "-title" || args[j] == "-color") && nextFlagExists == 0){
+            nextFlagExists = j;
+          }
+        }
+        if (nextFlagExists == 0){
+          text = args.slice(i + 1).join(" ");
+        }else{
+          text = args.slice(i + 1, nextFlagExists).join(" ");
+        }
+      }
+      if (args[i] == "-title"){
+        let nextFlagExists = 0;
+        for (let j = i; j < argLength; j++){
+          if ((args[j] == "-r" || args[j] == "-g" || args[j] == "-b" || args[j] == "-text" || args[j] == "-color") && nextFlagExists == 0){
+            nextFlagExists = j;
+          }
+        }
+        if (nextFlagExists == 0){
+          title = args.slice(i + 1).join(" ");
+        }else{
+          title = args.slice(i + 1, nextFlagExists).join(" ");
+        }
+      }
+      if (args[i] == "-color"){
+        let nextFlagExists = 0;
+        for (let j = i; j < argLength; j++){
+          if ((args[j] == "-r" || args[j] == "-g" || args[j] == "-b" || args[j] == "-text" || args[j] == "-title") && nextFlagExists == 0){
+            nextFlagExists = j;
+          }
+        }
+        if (i < argLength){
+            if (colors.has(args[i + 1])){
+              r = colors.get(args[i + 1])[0];
+              g = colors.get(args[i + 1])[1];
+              b = colors.get(args[i + 1])[2];
+            }
+        }else{
+
+        }
+      }
+      if (args[i] == "-r"){
+        let nextFlagExists = 0;
+        if (i < argLength){
+          if (!isNaN(args[i + 1])){
+            r = parseInt(args[i + 1]);
+          }
+        }else{
+
+        }
+      }
+    if (args[i] == "-g"){
+      let nextFlagExists = 0;
+      if (i < argLength){
+        if (!isNaN(args[i + 1])){
+          g = parseInt(args[i + 1]);
+        }
+      }else{
+
+      }
+    }
+    if (args[i] == "-b"){
+      let nextFlagExists = 0;
+      if (i < argLength){
+        if (!isNaN(args[i + 1])){
+          b = parseInt(args[i + 1]);
+        }
+      }else{
+
+      }
+    }
+  }
+    if (text){
+      embed.setDescription(text);
+    }
+    embed.setColor([r, g, b]);
+    if (title){
+      embed.setTitle(title);
+    }
+    msg.channel.sendEmbed(embed);
+    msg.delete();
+  }
+
+  else if(command == "eval") {
+    try {
+      var code = args.join(" ");
+      var evaled = eval(code);
+
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+
+      msg.channel.sendCode("xl", evaled);
+    } catch(err) {
+      msg.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
+    }
+  }
+
+  else if (command == "prune"){
+    let messagecount = parseInt(args[0]);
+    msg.channel.fetchMessages({limit: 100})
+    .then(messages => {
+      let msg_array = messages.array();
+      msg_array = msg_array.filter(m => m.author.id === bot.user.id);
+      msg_array.length = messagecount + 1;
+      msg_array.map(m => m.delete().catch(console.error));
+   });
+  }
+
+  else if (command == "botrestart"){
+    msg.channel.sendMessage("Restarting!").then((m) => {
+      process.exit("Restarting!");
+    });
+  }
+
+  else if (command == "toemoji"){
+    let charArray = args.join(" ").toLowerCase().split("");
+    for (let i = 0; i < charArray.length; i++){
+      if (textToEmoji.has(charArray[i])){
+        charArray[i] = textToEmoji.get(charArray[i]);
+      }
+    }
+    //setTimeout( () => { msg.edit(charArray.join("")) }, 50);
+    msg.channel.sendMessage(charArray.join(""));
+    msg.delete();
+  }
+
+  else if (command == "userid"){
+  if (!msg.mentions.users.first()){
+    msg.channel.sendMessage("`Usage: [p]userid @mention`");
+    return;
+  }
+  let targetUser = msg.mentions.users.first().id;
+  msg.channel.sendMessage("User ID of " + msg.mentions.users.first() + ": "+ targetUser);
+  commandUsed = true;
+  }
+
+  else if (command == "setgame"){
+    bot.user.setGame(args.join(" "));
+    msg.channel.sendMessage("Game set to: " + args.join(" "));
+  }
+
   if (command == "botdisable"){
     botEnable = false;
     msg.channel.sendMessage("Bot disabled!");
   }
+
+  else if (shortcuts.has(command)){
+    setTimeout( () => { msg.edit(shortcuts.get(command)) }, 50);
+    return;
+  }
 }
 });
 
-bot.login("MjcwMDU5NDkyNDUwNzYyNzUy.C1yg0g.45lkBqDe7hJ6JNvyvagE42UDC-A");
+bot.login(token);
