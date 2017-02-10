@@ -15,7 +15,8 @@ const shortcuts = new Map([
   ["tableflip", "(╯°□°）╯︵ ┻━┻"],
   ["unflip", "┬──┬﻿ ノ( ゜-゜ノ)"],
   ["nebula", "\u200b\:milky_way:"],
-  ["complaint", "Please send all complaints to `/dev/null`!"]
+  ["complaint", "Please send all complaints to `/dev/null`!"],
+  ["null", "\u200b"]
 ]);
 
 const textReplace = new Map([
@@ -24,7 +25,8 @@ const textReplace = new Map([
   ["~tableflip~", "(╯°□°）╯︵ ┻━┻"],
   ["~unflip~", "┬──┬﻿ ノ( ゜-゜ノ)"],
   ["~nebula~", "\u200b\:milky_way:"],
-  ["~complaint~", "Please send all complaints to `/dev/null`!"]
+  ["~complaint~", "Please send all complaints to `/dev/null`!"],
+  ["~null~", "\u200b"]
 ]);
 
 const colors = new Map([
