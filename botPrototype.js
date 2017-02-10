@@ -14,7 +14,7 @@ const shortcuts = new Map([
   ["shrug", "¯\\_(ツ)_/¯"],
   ["tableflip", "(╯°□°）╯︵ ┻━┻"],
   ["unflip", "┬──┬﻿ ノ( ゜-゜ノ)"],
-  ["nebula", "\🌌"],
+  ["nebula", "\:milky_way:"],
   ["complaint", "Please send all complaints to `/dev/null`!"]
 ]);
 
@@ -23,7 +23,7 @@ const textReplace = new Map([
   ["~shrug~", "¯\\_(ツ)_/¯"],
   ["~tableflip~", "(╯°□°）╯︵ ┻━┻"],
   ["~unflip~", "┬──┬﻿ ノ( ゜-゜ノ)"],
-  ["~nebula~", "\🌌"],
+  ["~nebula~", "\:milky_way:"],
   ["~complaint~", "Please send all complaints to `/dev/null`!"]
 ]);
 
