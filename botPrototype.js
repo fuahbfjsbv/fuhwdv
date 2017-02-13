@@ -292,6 +292,7 @@ bot.on("message", msg => {
       msg_array.map(m => m.delete().catch(console.error));
    });
       }
+      }
   }
 
   else if (command == "botrestart"){
