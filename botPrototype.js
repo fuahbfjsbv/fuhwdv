@@ -293,6 +293,9 @@ bot.on("message", msg => {
     msg.channel.fetchMessages({limit: 100})
     .then(messages => {
       let msg_array = messages.array();
+      if (msg.mentions.users.first()){
+        msg_array = msg_array.filter(m => m.author.id == msg.mentions.users.first().id);
+      }
       msg_array.length = messagecount + 1;
       msg_array.map(m => m.delete().catch(console.error));
    });
