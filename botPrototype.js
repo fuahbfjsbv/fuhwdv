@@ -275,15 +275,6 @@ bot.on("message", msg => {
 
   else if (command == "prune"){
     let messagecount = parseInt(args[0]);
-    if (args[1]){
-      if (args[1] == "-a"){
-            msg.channel.fetchMessages({limit: 100})
-    .then(messages => {
-      let msg_array = messages.array();
-      msg_array.length = messagecount + 1;
-      msg_array.map(m => m.delete().catch(console.error));
-   });
-      }else{
     msg.channel.fetchMessages({limit: 100})
     .then(messages => {
       let msg_array = messages.array();
@@ -291,8 +282,6 @@ bot.on("message", msg => {
       msg_array.length = messagecount + 1;
       msg_array.map(m => m.delete().catch(console.error));
    });
-      }
-      }
   }
 
   else if (command == "botrestart"){
