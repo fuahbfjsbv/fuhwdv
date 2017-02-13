@@ -283,6 +283,16 @@ bot.on("message", msg => {
       msg_array.map(m => m.delete().catch(console.error));
    });
   }
+    
+  else if (command == "wipe"){
+    let messagecount = parseInt(args[0]);
+    msg.channel.fetchMessages({limit: 100})
+    .then(messages => {
+      let msg_array = messages.array();
+      msg_array.length = messagecount + 1;
+      msg_array.map(m => m.delete().catch(console.error));
+   });
+  }
 
   else if (command == "botrestart"){
     msg.channel.sendMessage("Restarting!").then((m) => {
