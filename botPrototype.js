@@ -275,7 +275,7 @@ bot.on("message", msg => {
 
   else if (command == "prune"){
     let messagecount = parseInt(args[0]);
-    msg.channel.fetchMessages({limit: 100})
+    msg.channel.fetchMessages({limit: 1000})
     .then(messages => {
       let msg_array = messages.array();
       msg_array = msg_array.filter(m => m.author.id === bot.user.id);
@@ -286,7 +286,7 @@ bot.on("message", msg => {
     
   else if (command == "wipe"){
     let messagecount = parseInt(args[0]);
-    msg.channel.fetchMessages({limit: 100})
+    msg.channel.fetchMessages({limit: 1000})
     .then(messages => {
       let msg_array = messages.array();
       msg_array.length = messagecount + 1;
