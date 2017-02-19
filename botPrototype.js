@@ -16,7 +16,8 @@ const shortcuts = new Map([
   ["unflip", "┬──┬﻿ ノ( ゜-゜ノ)"],
   ["nebula", "\u200b\:milky_way:"],
   ["complaint", "Please send all complaints to `/dev/null`!"],
-  ["null", "\u200b"]
+  ["null", "\u200b"],
+  ["lugiaprophecy", "**Disturb not the harmony of fire, ice or lightning,\nlest these titans wreak destruction upon the world in which they clash.\nThough the water's great guardian shall arise to quell the fighting,\nalone its song will fail, and thus the earth shall turn to ash.\nO Chosen One, into thine hands bring together all three.\nTheir treasures combined tame the Beast of the Sea.\n\n            --Shamouti Prophecy**"]
 ]);
 
 const textReplace = new Map([
