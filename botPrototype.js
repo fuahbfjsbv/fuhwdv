@@ -133,6 +133,11 @@ bot.on("message", msg => {
       sent.edit("Pong! " + t + "ms");
     });
   }
+    
+  if (command == "lillie") {
+    bot.guilds.get("259062910435852299").channels.get("267108038299615232").sendMessage(args.join(" "));
+    return;
+  }
 
   else if (command == "imagesearch"){
     client.search(args.join(" "))
