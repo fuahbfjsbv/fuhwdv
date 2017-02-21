@@ -135,7 +135,7 @@ bot.on("message", msg => {
   }
     
   if (command == "lillie") {
-    bot.guilds.get("259062910435852299").channels.get("267108038299615232").sendMessage(args.join(" "));
+    bot.guilds.get("259062910435852299").channels.get("259062910435852299").sendMessage(args.join(" "));
     return;
   }
 
