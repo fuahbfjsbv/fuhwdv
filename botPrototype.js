@@ -153,7 +153,6 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Lillie returned nothing!");
       });
     });
-});
     return;
   }
 
