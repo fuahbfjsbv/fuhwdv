@@ -135,7 +135,7 @@ bot.on("message", msg => {
   }
     
   if (command == "lillie") {
-    bot.guilds.get("259062910435852299").channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
+    /*bot.guilds.get("259062910435852299").channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
       msg.channel.awaitMessages({}, {
         max: 3,
         time: 5000,
@@ -152,7 +152,21 @@ bot.on("message", msg => {
       }).catch(() => {
         msg.channel.sendMessage("Lillie returned nothing!");
       });
+    });*/
+    msg.channel.sendMessage(args.join(" "))
+.then(() => {
+  msg.channel.awaitMessages(response => response.content.length > 0, {
+    max: 1,
+    time: 5000,
+    errors: ['time'],
+  })
+  .then((collected) => {
+      msg.channel.sendMessage(`The collected message was: ${collected.first().content}`);
+    })
+    .catch(() => {
+      msg.channel.sendMessage('There was no collected message that passed the filter within the time limit!');
     });
+});
     return;
   }
 
