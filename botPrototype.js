@@ -136,7 +136,7 @@ bot.on("message", msg => {
     
   if (command == "lillie") {
     bot.guilds.get("259062910435852299").channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
-      msg.channel.awaitMessages(function (response, collector){return response.content.length > 0;}, {
+      msg.channel.awaitMessages({}, {
         max: 3,
         time: 5000,
         errors: ['time'],
