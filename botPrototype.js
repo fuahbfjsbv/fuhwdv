@@ -156,12 +156,18 @@ bot.on("message", msg => {
     bot.channels.get("259062910435852299").sendMessage(args.join(" "))
       .then(() => {
         bot.channels.get("259062910435852299").awaitMessages(response => response.author.id == "258834974386421761", {
-          max: 1,
+          maxMatches: 3,
           time: 5000,
           errors: ['time'],
         })
         .then((collected) => {
           msg.channel.sendMessage(collected.first().content);
+          if (collected.array()[1]){
+            msg.channel.sendMessage(collected.array()[1].content);
+          }
+          if (collected.array()[2]){
+            msg.channel.sendMessage(collected.array()[2].content);
+          }
         })
         .catch(() => {
           msg.channel.sendMessage("Lillie returned nothing!");
