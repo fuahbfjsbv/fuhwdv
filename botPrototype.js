@@ -135,7 +135,7 @@ bot.on("message", msg => {
   }
     
   if (command == "lillie") {
-    bot.channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
+    /*bot.channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
       msg.channel.awaitMessages(response => response.length > 0, {
         max: 3,
         time: 5000,
@@ -152,7 +152,28 @@ bot.on("message", msg => {
       }).catch(() => {
         msg.channel.sendMessage("Lillie returned nothing!");
       });
-    });
+    });*/
+    bot.channels.get("259062910435852299").sendMessage(args.join(" "))
+      .then(() => {
+        bot.channels.get("259062910435852299").awaitMessages(response => response.author.id == "258834974386421761", {
+          max: 3,
+          time: 5000,
+          errors: ['time'],
+        })
+        .then((collected) => {
+          msg.channel.sendMessage(collected.first().content);
+          let array = collected.array();
+          if (array[1]){
+            msg.channel.sendMessage(array[1].content);
+          }
+          if (array[2]){
+            msg.channel.sendMessage(array[2].content);
+          };
+        })
+        .catch(() => {
+          msg.channel.sendMessage("Lillie returned nothing!");
+        });
+});
     return;
   }
 
