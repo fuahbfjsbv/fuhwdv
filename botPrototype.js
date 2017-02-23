@@ -156,7 +156,7 @@ bot.on("message", msg => {
     bot.channels.get("259062910435852299").sendMessage(args.join(" "))
       .then(() => {
         bot.channels.get("259062910435852299").awaitMessages(response => response.author.id == "258834974386421761", {
-          maxMatches: 3,
+          maxMatches: 1,
           time: 5000,
           errors: ['time'],
         })
