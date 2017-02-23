@@ -136,7 +136,7 @@ bot.on("message", msg => {
     
   if (command == "lillie") {
     bot.channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
-      bot.channels.get("259062910435852299").awaitMessages({}, {
+      bot.channels.get("259062910435852299").awaitMessages(response => response.length > 0, {
         max: 3,
         time: 5000,
         errors: ['time'],
