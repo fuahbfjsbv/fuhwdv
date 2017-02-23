@@ -135,8 +135,8 @@ bot.on("message", msg => {
   }
     
   if (command == "lillie") {
-    /*bot.guilds.get("259062910435852299").channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
-      msg.channel.awaitMessages({}, {
+    bot.channels.get("259062910435852299").sendMessage(args.join(" ")).then(()=>{
+      bot.channels.get("259062910435852299").awaitMessages(function (response){response.author.id == "258834974386421761";}, {
         max: 3,
         time: 5000,
         errors: ['time'],
@@ -152,19 +152,6 @@ bot.on("message", msg => {
       }).catch(() => {
         msg.channel.sendMessage("Lillie returned nothing!");
       });
-    });*/
-    msg.channel.sendMessage(args.join(" "))
-.then(() => {
-  msg.channel.awaitMessages(response => response.content.length > 0, {
-    max: 1,
-    time: 5000,
-    errors: ['time'],
-  })
-  .then((collected) => {
-      msg.channel.sendMessage(`The collected message was: ${collected.first().content}`);
-    })
-    .catch(() => {
-      msg.channel.sendMessage('There was no collected message that passed the filter within the time limit!');
     });
 });
     return;
