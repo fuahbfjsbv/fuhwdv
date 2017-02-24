@@ -327,6 +327,17 @@ bot.on("message", msg => {
    });
   }
     
+  else if (command == "clearreactions"){
+    let messagecount = parseInt(args[0]);
+    msg.channel.fetchMessages({limit: 100})
+    .then(messages => {
+      let msg_array = messages.array();
+      msg_array = msg_array.filter(m => m.author.id === bot.user.id);
+      msg_array.length = messagecount + 1;
+      msg_array.map(m => m.clearReactions().catch(console.error));
+   });
+  }
+    
   else if (command == "wipe"){
     if (!msg.guild.member(bot.user).hasPermission("MANAGE_MESSAGES")){
         msg.channel.sendMessage("Error! Missing permission `MANAGE_MESSAGES`!");
