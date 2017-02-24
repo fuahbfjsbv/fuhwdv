@@ -1,8 +1,6 @@
 /*****
 PUT YOUR TOKEN HERE!!!
 *****/
-let token = process.env.TOKEN;
-
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var fs = require('fs');
@@ -400,4 +398,4 @@ bot.on("message", msg => {
 }
 });
 
-bot.login(token);
+bot.login(process.env.TOKEN);
