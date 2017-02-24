@@ -154,10 +154,15 @@ bot.on("message", msg => {
   }
     
   if (command == "mentionresponsedelete") {
+    if (args[0] == "-g"){
+      mentionResponses = {};
+      msg.channel.sendMessage("Deleted all mention responses!");
+    }
     if (!mentionResponses[msg.channel.id]){
-      msg.channel.sendMessage("There is no response in this channel.");
+      msg.channel.sendMessage("There is no response in this channel!");
     }else{
       delete mentionResponses[msg.channel.id];
+      msg.channel.sendMessage("Deleted mention response for this channel!");
     }
   }
     
