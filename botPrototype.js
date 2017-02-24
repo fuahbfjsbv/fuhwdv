@@ -146,8 +146,10 @@ bot.on("message", msg => {
   if (command == "mentionresponseadd") {
     if (!mentionResponses[msg.channel.id]){
       mentionResponses[msg.channel.id] = {response: args.join(" ")};
+      msg.channel.sendMessage("Added `${args.join(" ")}` as the response!");
     }else{
       mentionResponses[msg.channel.id].response = args.join(" ");
+      msg.channel.sendMessage("Updated `${args.join(" ")}` as the response!");
     }
   }
     
