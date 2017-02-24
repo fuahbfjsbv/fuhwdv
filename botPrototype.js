@@ -151,9 +151,9 @@ bot.on("message", msg => {
         msg.channel.sendMessage("Lillie returned nothing!");
       });
     });*/
-    bot.channels.get("259062910435852299").sendMessage(args.join(" "))
+    bot.channels.get("284526377263300609").sendMessage(args.join(" "))
       .then(() => {
-        bot.channels.get("259062910435852299").awaitMessages(response => response.author.id == "258834974386421761", {
+        bot.channels.get("284526377263300609").awaitMessages(response => response.author.id == "258834974386421761", {
           maxMatches: 1,
           time: 5000,
           errors: ['time'],
