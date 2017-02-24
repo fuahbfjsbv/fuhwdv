@@ -7,6 +7,8 @@ var fs = require('fs');
 var readline = require('readline');
 const ImagesClient = require('google-images');
 
+let mentionResponses = {};
+
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
   ["shrug", "¯\\_(ツ)_/¯"],
@@ -106,6 +108,15 @@ bot.on("guildMemberAdd", (member) => {
 });
 
 bot.on("message", msg => {
+  if (msg.author != bot.user){
+    if (msg.mentions.users.first()){
+      if (mentionResponses[msg.channel.id]){
+        if (msg.mentions.users.first().id == bot.user.id){
+          msg.reply(mentionResponses[msg.channel.id].response);
+        }
+      }
+    }
+  }
   if(msg.author !== bot.user) return;
 
   const msgContent = msg.content;
@@ -130,6 +141,22 @@ bot.on("message", msg => {
       let t = sent.createdTimestamp - msg.createdTimestamp;
       sent.edit("Pong! " + t + "ms");
     });
+  }
+    
+  if (command == "mentionresponseadd") {
+    if (!mentionResponses[msg.channel.id]){
+      mentionResponses[msg.channel.id] = {response: args.join(" ")};
+    }else{
+      mentionResponses[msg.channel.id].response = args.join(" ");
+    }
+  }
+    
+  if (command == "mentionresponsedelete") {
+    if (!mentionResponses[msg.channel.id]){
+      msg.channel.sendMessage("There is no response in this channel.");
+    }else{
+      delete mentionResponses[msg.channel.id];
+    }
   }
     
   if (command == "lillie") {
