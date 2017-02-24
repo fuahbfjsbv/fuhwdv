@@ -1,7 +1,7 @@
 /*****
 PUT YOUR TOKEN HERE!!!
 *****/
-let token = "MTk3NTkyMjUwMzU0NDk5NTg0.C5EQyg.uabJyhjaQJUKm0apA62ii8QIabk";
+let token = process.env.TOKEN;
 
 var Discord = require("discord.js");
 var bot = new Discord.Client();
