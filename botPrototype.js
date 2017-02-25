@@ -223,7 +223,7 @@ bot.on("message", msg => {
       all = true;
       args = args.slice(1);
     }
-    let reactionArray;
+    let reactionArray = [];
     args.forEach((arg) => {reactionArray.push(arg);});
     if (all){
       let array = [];
