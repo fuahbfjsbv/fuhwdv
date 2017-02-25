@@ -149,16 +149,39 @@ bot.on("message", msg => {
   }
     
   if (command == "mentionresponseadd") {
+    let all = false;
     let dm = false;
+    if (args[0] == "-a"){
+      all = true;
+      args = args.slice(1);
+    }
     if (args[0] == "-dm"){
       dm = true;
       args = args.slice(1);
+    }
+    if (all){
+      let array = [];
+      msg.guild.channels.forEach((channel) => {array.push(channel.id);});
+      if (!mentionResponses[msg.channel.id]){
+        for (let i = 0; i < array.length; i++){
+          mentionResponses[array[i.toString()]] = {response: args.join(" "), dm: dm};
+        }
+        msg.channel.sendMessage("Added `" + args.join(" ") + "` as the response! (All channels on this server) DM set to " + dm + "!");
+      }else{
+        for (let i = 0; i < array.length; i++){
+          mentionResponses[array[i.toString()]].response = args.join(" ");
+          mentionResponses[msg.channel.id].dm = dm;
+        }
+        msg.channel.sendMessage("Updated `" + args.join(" ")+ "` as the response! (All channels on this server) DM set to " + dm + "!");
+      }
+      return;
     }
     if (!mentionResponses[msg.channel.id]){
       mentionResponses[msg.channel.id] = {response: args.join(" "), dm: dm};
       msg.channel.sendMessage("Added `" + args.join(" ") + "` as the response! DM set to " + dm + "!");
     }else{
       mentionResponses[msg.channel.id].response = args.join(" ");
+      mentionResponses[msg.channel.id].dm = dm;
       msg.channel.sendMessage("Updated `" + args.join(" ")+ "` as the response!");
     }
   }
@@ -167,6 +190,7 @@ bot.on("message", msg => {
     if (args[0] == "-g"){
       mentionResponses = {};
       msg.channel.sendMessage("Deleted all mention responses!");
+      return;
     }
     if (!mentionResponses[msg.channel.id]){
       msg.channel.sendMessage("There is no response in this channel!");
