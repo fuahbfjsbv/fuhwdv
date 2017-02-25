@@ -10,6 +10,9 @@ const ImagesClient = require('google-images');
 let mentionResponses = {};
 let reactionResponses = {};
 
+let mentionCooldown = 5000;
+let mentionCooling = false;
+
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
   ["shrug", "¯\\_(ツ)_/¯"],
@@ -110,6 +113,9 @@ bot.on("guildMemberAdd", (member) => {
 
 bot.on("message", msg => {
   if (msg.author != bot.user){
+    if (mentionCooling){
+      return;
+    }
     if (msg.mentions.users.first()){
       if (mentionResponses[msg.channel.id]){
         if (msg.mentions.users.first().id == bot.user.id){
@@ -118,6 +124,8 @@ bot.on("message", msg => {
           }else{
             msg.reply(mentionResponses[msg.channel.id].response).catch((err)=>{console.log(err);});
           }
+          setTimeout(function(){mentionCooling = false;}, mentionCooldown);
+          mentionCooling = true;
         }
       }
     }
