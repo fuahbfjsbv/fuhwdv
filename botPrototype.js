@@ -112,7 +112,11 @@ bot.on("message", msg => {
     if (msg.mentions.users.first()){
       if (mentionResponses[msg.channel.id]){
         if (msg.mentions.users.first().id == bot.user.id){
-          msg.reply(mentionResponses[msg.channel.id].response);
+          if (mentionResponses[msg.channel.id].dm == true){
+            msg.author.sendMessage(mentionResponses[msg.channel.id].response).catch((err)=>{console.log(err);});
+          }else{
+            msg.reply(mentionResponses[msg.channel.id].response).catch((err)=>{console.log(err);});
+          }
         }
       }
     }
@@ -144,9 +148,14 @@ bot.on("message", msg => {
   }
     
   if (command == "mentionresponseadd") {
+    let dm = false;
+    if (args[0] == "-dm"){
+      dm = true;
+      args = args.slice(1);
+    }
     if (!mentionResponses[msg.channel.id]){
-      mentionResponses[msg.channel.id] = {response: args.join(" ")};
-      msg.channel.sendMessage("Added `" + args.join(" ") + "` as the response!");
+      mentionResponses[msg.channel.id] = {response: args.join(" "), dm: dm};
+      msg.channel.sendMessage("Added `" + args.join(" ") + "` as the response! DM set to " + dm + "!");
     }else{
       mentionResponses[msg.channel.id].response = args.join(" ");
       msg.channel.sendMessage("Updated `" + args.join(" ")+ "` as the response!");
