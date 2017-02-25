@@ -133,7 +133,7 @@ bot.on("message", msg => {
   
   if (reactions[msg.channel.id]){
     if (reactions[msg.channel.id].reactions){
-      reactions[msg.channel.id].forEach((reaction) => {
+      reactions[msg.channel.id].reactions.forEach((reaction) => {
         msg.react(reaction);
       });
     }
