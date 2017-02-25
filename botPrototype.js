@@ -111,6 +111,18 @@ bot.on("guildMemberAdd", (member) => {
 
 });
 
+var react = function (msg, reactNum){
+  if (reactions[msg.channel.id]){
+    if (reactions[msg.channel.id].reactions){
+      msg.react(reactions[msg.channel.id].reactions[reactNum]).then(() => {
+        if (reactNum < reactions[msg.channel.id].reactions.length){
+          react(msg, reactNum + 1);
+        }
+      });
+    }
+  }
+}
+
 bot.on("message", msg => {
   if (msg.author != bot.user){
     if (mentionCooling){
@@ -131,13 +143,7 @@ bot.on("message", msg => {
     }
   }
   
-  if (reactions[msg.channel.id]){
-    if (reactions[msg.channel.id].reactions){
-      reactions[msg.channel.id].reactions.forEach((reaction) => {
-        msg.react(reaction);
-      });
-    }
-  }
+  react(msg, 0);
   
   if(msg.author !== bot.user) return;
 
