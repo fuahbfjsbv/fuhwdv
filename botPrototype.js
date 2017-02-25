@@ -10,7 +10,7 @@ const ImagesClient = require('google-images');
 let mentionResponses = {};
 let reactionResponses = {};
 
-let mentionCooldown = 5000;
+let mentionCooldown = 15000;
 let mentionCooling = false;
 
 const shortcuts = new Map([
