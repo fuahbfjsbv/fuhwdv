@@ -8,7 +8,7 @@ var readline = require('readline');
 const ImagesClient = require('google-images');
 
 let mentionResponses = {};
-let reactionResponses = {};
+let reactions = {};
 
 let mentionCooldown = 15000;
 let mentionCooling = false;
@@ -130,6 +130,15 @@ bot.on("message", msg => {
       }
     }
   }
+  
+  if (reactions[msg.channel.id]){
+    if (reactions[msg.channel.id].reactions.length > 0){
+      reactions[msg.channel.id].forEach((reaction) => {
+        msg.react(reaction);
+      });
+    }
+  }
+  
   if(msg.author !== bot.user) return;
 
   const msgContent = msg.content;
@@ -174,13 +183,13 @@ bot.on("message", msg => {
         for (let i = 0; i < array.length; i++){
           mentionResponses[array[i.toString()]] = {response: args.join(" "), dm: dm};
         }
-        msg.channel.sendMessage("Added `" + args.join(" ") + "` as the response! (All channels on this server) DM set to " + dm + "!");
+        msg.channel.sendMessage("Added `" + args.join(" ") + "` as the response! (All channels in this server) DM set to " + dm + "!");
       }else{
         for (let i = 0; i < array.length; i++){
           mentionResponses[array[i.toString()]].response = args.join(" ");
           mentionResponses[msg.channel.id].dm = dm;
         }
-        msg.channel.sendMessage("Updated `" + args.join(" ")+ "` as the response! (All channels on this server) DM set to " + dm + "!");
+        msg.channel.sendMessage("Updated `" + args.join(" ")+ "` as the response! (All channels in this server) DM set to " + dm + "!");
       }
       return;
     }
@@ -205,6 +214,53 @@ bot.on("message", msg => {
     }else{
       delete mentionResponses[msg.channel.id];
       msg.channel.sendMessage("Deleted mention response for this channel!");
+    }
+  }
+    
+  if (command == "autoreactadd" || command == "ara") {
+    let all = false;
+    if (args[0] == "-a"){
+      all = true;
+      args = args.slice(1);
+    }
+    let reactionArray;
+    args.forEach((arg) => {if (arg.startsWith(":") && arg.endsWith(":")){reactionArray.push(arg);}});
+    if (all){
+      let array = [];
+      msg.guild.channels.forEach((channel) => {array.push(channel.id);});
+      if (!reactions[msg.channel.id]){
+        for (let i = 0; i < array.length; i++){
+          reactions[array[i.toString()]] = {reactions: reactionArray};
+        }
+        msg.channel.sendMessage("Auto-react enabled! (for all channels in this server)");
+      }else{
+        for (let i = 0; i < array.length; i++){
+          reactions[array[i.toString()]].reactions = reactionArray;
+        }
+        msg.channel.sendMessage("Auto-react updated! (for all channels in this server)");
+      }
+      return;
+    }
+    if (!reactions[msg.channel.id]){
+      reactions[msg.channel.id] = {reactions: reactionArray};
+      msg.channel.sendMessage("Auto-react enabled!");
+    }else{
+      mentionResponses[msg.channel.id].reactions = reactionArray;
+      msg.channel.sendMessage("Auto-react updated!");
+    }
+  }
+    
+  if (command == "autoreactdelete" || command == "ard") {
+    if (args[0] == "-g"){
+      reactions = {};
+      msg.channel.sendMessage("Deleted all auto-reactions!");
+      return;
+    }
+    if (!reactions[msg.channel.id]){
+      msg.channel.sendMessage("There are no auto-reactions in this channel!");
+    }else{
+      delete reactions[msg.channel.id];
+      msg.channel.sendMessage("Deleted auto-reactions for this channel!");
     }
   }
     
