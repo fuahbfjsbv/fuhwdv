@@ -389,8 +389,8 @@ bot.on("message", msg => {
           msg_array.length = messagecount + 1;
           msg_array.map(m => m.clearReactions().catch(console.error));
         });
+        return;
       }
-      return;
     }
     if (isNaN(args[0])){
       msg.channel.sendMessage("Usage: `[p]clearreactions [-a] [number]`");
