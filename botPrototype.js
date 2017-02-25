@@ -359,6 +359,9 @@ bot.on("message", msg => {
   }
 
   else if (command == "prune"){
+    if (isNaN(args[0])){
+      msg.channel.sendMessage("Usage: `[p]clearreactions [-a] [number]`");
+    }
     let messagecount = parseInt(args[0]);
     msg.channel.fetchMessages({limit: 100})
     .then(messages => {
@@ -374,6 +377,24 @@ bot.on("message", msg => {
       msg.channel.sendMessage("Error! Missing permission `MANAGE_MESSAGES`!");
       return;
     }
+    if (args[0]){
+      if (args[0] == "-a"){
+        if (isNaN(args[1])){
+          msg.channel.sendMessage("Usage: `[p]clearreactions [-a] [number]`");
+        }
+        let messagecount = parseInt(args[1]);
+        msg.channel.fetchMessages({limit: 100})
+        .then(messages => {
+          let msg_array = messages.array();
+          msg_array.length = messagecount + 1;
+          msg_array.map(m => m.clearReactions().catch(console.error));
+        });
+      }
+      return;
+    }
+    if (isNaN(args[0])){
+      msg.channel.sendMessage("Usage: `[p]clearreactions [-a] [number]`");
+    }
     let messagecount = parseInt(args[0]);
     msg.channel.fetchMessages({limit: 100})
     .then(messages => {
@@ -381,13 +402,16 @@ bot.on("message", msg => {
       msg_array = msg_array.filter(m => m.author.id === bot.user.id);
       msg_array.length = messagecount + 1;
       msg_array.map(m => m.clearReactions().catch(console.error));
-   });
+    });
   }
     
   else if (command == "wipe"){
     if (!msg.guild.member(bot.user).hasPermission("MANAGE_MESSAGES")){
         msg.channel.sendMessage("Error! Missing permission `MANAGE_MESSAGES`!");
         return;
+    }
+    if (isNaN(args[0])){
+      msg.channel.sendMessage("Usage: `[p]clearreactions [-a] [number]`");
     }
     let messagecount = parseInt(args[0]);
     msg.channel.fetchMessages({limit: 100})
