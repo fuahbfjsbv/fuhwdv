@@ -219,7 +219,7 @@ bot.on("message", msg => {
     
   if (command == "autoreactadd" || command == "ara") {
     let all = false;
-    if (args[0] == "-a"){
+    if (args[0] == "-s"){
       all = true;
       args = args.slice(1);
     }
@@ -254,6 +254,17 @@ bot.on("message", msg => {
     if (args[0] == "-g"){
       reactions = {};
       msg.channel.sendMessage("Deleted all auto-reactions!");
+      return;
+    }
+    if (args[0] == "-s"){
+      let array = [];
+      msg.guild.channels.forEach((channel) => {array.push(channel.id);});
+      array.forEach((a) => {
+        if (reactions[a]){
+          delete reactions[a];
+        }
+      });
+      msg.channel.sendMessage("Deleted all auto-reactions on this server!");
       return;
     }
     if (!reactions[msg.channel.id]){
