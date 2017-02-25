@@ -156,7 +156,7 @@ bot.on("message", msg => {
     });
   }
     
-  if (command == "mentionresponseadd") {
+  if (command == "mentionresponseadd" || command == "mra") {
     let all = false;
     let dm = false;
     if (args[0] == "-a"){
@@ -194,7 +194,7 @@ bot.on("message", msg => {
     }
   }
     
-  if (command == "mentionresponsedelete") {
+  if (command == "mentionresponsedelete" || command == "mrd") {
     if (args[0] == "-g"){
       mentionResponses = {};
       msg.channel.sendMessage("Deleted all mention responses!");
