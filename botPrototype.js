@@ -10,7 +10,7 @@ const ImagesClient = require('google-images');
 let mentionResponses = {};
 let reactions = {};
 
-let mentionCooldown = 15000;
+let mentionCooldown = 5000;
 let mentionCooling = false;
 
 const shortcuts = new Map([
@@ -224,7 +224,7 @@ bot.on("message", msg => {
       args = args.slice(1);
     }
     let reactionArray;
-    args.forEach((arg) => {if (arg.startsWith(":") && arg.endsWith(":")){reactionArray.push(arg);}});
+    args.forEach((arg) => {if (arg.startsWith(":")){reactionArray.push(arg);}});
     if (all){
       let array = [];
       msg.guild.channels.forEach((channel) => {array.push(channel.id);});
