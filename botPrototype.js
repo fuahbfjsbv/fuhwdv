@@ -8,6 +8,7 @@ var readline = require('readline');
 const ImagesClient = require('google-images');
 
 let mentionResponses = {};
+let reactionResponses = {};
 
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
@@ -369,6 +370,10 @@ bot.on("message", msg => {
   }
     
   else if (command == "clearreactions"){
+    if (msg.guild.member(bot.user).hasPermission("MANAGE_MESSAGES")){
+      msg.channel.sendMessage("Error! Missing permission `MANAGE_MESSAGES`!");
+      return;
+    }
     let messagecount = parseInt(args[0]);
     msg.channel.fetchMessages({limit: 100})
     .then(messages => {
