@@ -13,6 +13,8 @@ let reactions = {};
 let mentionCooldown = 5000;
 let mentionCooling = false;
 
+var guildMemberAddFunction = function(guild){}
+
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
   ["shrug", "¯\\_(ツ)_/¯"],
@@ -108,7 +110,7 @@ bot.on("guildCreate", guild => {
 });
 
 bot.on("guildMemberAdd", (member) => {
-
+  guildMemberAddFunction(guild).catch((err) => {console.log(err);});
 });
 
 var react = function (msg, reactNum){
