@@ -110,7 +110,7 @@ bot.on("guildCreate", guild => {
 });
 
 bot.on("guildMemberAdd", (member) => {
-  guildMemberAddFunction(guild).catch((err) => {console.log(err);});
+  guildMemberAddFunction(member).catch((err) => {console.log(err);});
 });
 
 var react = function (msg, reactNum){
