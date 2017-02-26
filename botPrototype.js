@@ -13,7 +13,7 @@ let reactions = {};
 let mentionCooldown = 5000;
 let mentionCooling = false;
 
-var guildMemberAddFunction = function(member){if(member.guild.id == "261614766227718146"){if(member.user.username.toUpperCase() == member.user.username){bot.channels.get("261614766227718146").sendMessage("+ban " + member.toString() + "Most likely raiding alt!");}}}
+var guildMemberAddFunction = function(member){if(member.guild.id == "261614766227718146"){if(member.user.username.toUpperCase() == member.user.username){bot.channels.get("261614766227718146").sendMessage("+ban " + member.toString() + " Most likely raiding alt!");}}}
 
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
