@@ -13,8 +13,6 @@ let reactions = {};
 let mentionCooldown = 5000;
 let mentionCooling = false;
 
-var guildMemberAddFunction = function(member){if(member.guild.id == "261614766227718146"){if(member.user.username.toUpperCase() == member.user.username){bot.channels.get("261614766227718146").sendMessage("+ban " + member.toString() + " Most likely raiding alt!");}}}
-
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
   ["shrug", "¯\\_(ツ)_/¯"],
@@ -110,7 +108,11 @@ bot.on("guildCreate", guild => {
 });
 
 bot.on("guildMemberAdd", (member) => {
-  guildMemberAddFunction(member).catch((err) => {console.log(err);});
+  if(member.guild.id == "261614766227718146"){
+    if(member.user.username.toUpperCase() == member.user.username){
+      bot.channels.get("261614766227718146").sendMessage("+ban " + member.toString() + " Most likely raiding alt!");
+    }
+  }
 });
 
 var react = function (msg, reactNum){
