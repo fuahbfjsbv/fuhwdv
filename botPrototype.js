@@ -13,6 +13,10 @@ let reactions = {};
 let mentionCooldown = 5000;
 let mentionCooling = false;
 
+let games = [];
+let gameDelay = 5000;
+let gameIndex = 0;
+
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
   ["shrug", "¯\\_(ツ)_/¯"],
@@ -96,6 +100,16 @@ var botEnable = true;
 
 bot.on('ready', () => {
   console.log('I am ready!');
+  let id = "292513950812209152";
+  bot.channels.get("292513818368802816").fetchMessages({
+    around: id
+  }).then(messages => {
+    let msgFilter = messages.filter(e => e.id == id).first();
+    let msgArray = msgFilter.content.split('\n');
+    isNaN(parseInt(msgArray[0])) ? gameDelay = 5000 : gameDelay = parseInt(msgArray[0]);
+    msgArray.slice(1);
+    games = msgArray;
+  });
 });
 
 bot.on('error', e => {
@@ -114,6 +128,15 @@ bot.on("guildMemberAdd", (member) => {
     }
   }
 });
+
+var cycleGames = function (){
+  bot.user.setGame(games[gameIndex]);
+  gameIndex++;
+  if (gameIndex > games.length - 1){
+    gameIndex = 0;
+  }
+  setTimeout(cycleGames, gameDelay);
+}
 
 var react = function (msg, reactNum){
   if (reactions[msg.channel.id]){
@@ -172,6 +195,19 @@ bot.on("message", msg => {
     msg.channel.sendMessage("Pong!").then((sent) => {
       let t = sent.createdTimestamp - msg.createdTimestamp;
       sent.edit("Pong! " + t + "ms");
+    });
+  }
+    
+  if (command == "gamecycle"){
+    let id = "292513950812209152";
+    bot.channels.get("292513818368802816").fetchMessages({
+      around: id
+    }).then(messages => {
+      let msgFilter = messages.filter(e => e.id == id).first();
+      let msgArray = msgFilter.content.split('\n');
+      isNaN(parseInt(msgArray[0])) ? gameDelay = 5000 : gameDelay = parseInt(msgArray[0]);
+      msgArray.slice(1);
+      games = msgArray;
     });
   }
     
