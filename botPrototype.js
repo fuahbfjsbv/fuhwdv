@@ -110,6 +110,7 @@ bot.on('ready', () => {
     msgArray.slice(1);
     games = msgArray;
   });
+  cycleGames();
 });
 
 bot.on('error', e => {
@@ -129,7 +130,7 @@ bot.on("guildMemberAdd", (member) => {
   }
 });
 
-var cycleGames = function (){
+function cycleGames(){
   bot.user.setGame(games[gameIndex]);
   gameIndex++;
   if (gameIndex > games.length - 1){
