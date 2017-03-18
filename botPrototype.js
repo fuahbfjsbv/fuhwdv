@@ -107,8 +107,7 @@ bot.on('ready', () => {
     let msgFilter = messages.filter(e => e.id == id).first();
     let msgArray = msgFilter.content.split('\n');
     isNaN(parseInt(msgArray[0])) ? gameDelay = 5000 : gameDelay = parseInt(msgArray[0]);
-    msgArray.slice(1);
-    games = msgArray;
+    games = msgArray.slice(1);
   });
   cycleGames();
 });
@@ -207,8 +206,7 @@ bot.on("message", msg => {
       let msgFilter = messages.filter(e => e.id == id).first();
       let msgArray = msgFilter.content.split('\n');
       isNaN(parseInt(msgArray[0])) ? gameDelay = 5000 : gameDelay = parseInt(msgArray[0]);
-      msgArray.slice(1);
-      games = msgArray;
+      games = msgArray.slice(1);
     });
   }
     
