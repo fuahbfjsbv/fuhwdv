@@ -337,6 +337,7 @@ bot.on("message", msg => {
         }
       }
     });
+    let maxmsgs = Infinity;
     let stringArray = msgArray.join("\n").split("");
     while (stringArray.length > 0 && maxmsgs > 0){
       if (stringArray.length > 1999){
