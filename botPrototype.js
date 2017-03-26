@@ -108,7 +108,6 @@ function sendsplitmsg(msg, string, maxmsgs){
     maxmsgs == Infinity;
   }
   let stringArray = string.split("");
-  let divider = 0;
   while (stringArray.length > 0 && maxmsgs > 0){
     if (stringArray.length > 1999){
       for (let i = 1999; i > 0; i--){
@@ -338,7 +337,23 @@ bot.on("message", msg => {
         }
       }
     });
-    sendsplitmsg(msg, msgArray.join("\n"), Infinity);
+    let stringArray = msgArray.split("");
+    while (stringArray.length > 0 && maxmsgs > 0){
+      if (stringArray.length > 1999){
+        for (let i = 1999; i > 0; i--){
+          if (stringArray[i] == " "){
+            msg.channel.sendMessage(stringArray.slice(0, i).join(""));
+            stringArray = stringArray.slice(i + 1);
+            maxmsgs--;
+            break;
+          }
+        }
+      }
+      if (stringArray.length < 2000){
+        msg.channel.sendMessage(stringArray.join(""));
+        maxmsgs--;
+      }
+    }
   }
     
   if (command == "sk?"){
