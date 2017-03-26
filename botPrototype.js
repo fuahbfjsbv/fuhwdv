@@ -332,16 +332,13 @@ bot.on("message", msg => {
       if (target.members.get(m.id)){
         if (inclBots == false && !m.user.bot){
           msgArray.push(m.user.username + " (" + m.id + ")");
-          counter++;
         }
         if (inclBots == true){
           msgArray.push(m.user.username + " (" + m.id + ")");
-          counter++;
         }
-        if (counter >= 25){
-          counter = 0;
-          msg.channel.sendMessage(msgArray.join("\n"));
-          msgArray.length = 0;
+        while (msgArray.length > 0){
+          msg.channel.sendMessage(msgArray.slice(0, 25).join("\n"));
+          msgArray = msgArray.slice(25);
         }
       }
     });
