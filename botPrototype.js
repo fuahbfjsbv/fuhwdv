@@ -335,12 +335,13 @@ bot.on("message", msg => {
           counter++;
         }
         if (inclBots == true){
-          msgArray.push(m.username + " (" + m.id + ")");
+          msgArray.push(m.user.username + " (" + m.id + ")");
           counter++;
         }
         if (counter >= 24){
           counter = 0;
           msg.channel.sendMessage(msgArray.join("\n"));
+          msgArray = [];
         }
       }
     });
