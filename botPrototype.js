@@ -327,34 +327,23 @@ bot.on("message", msg => {
     let origin = msg.guild;
     let target = spy.guilds.get("252525368865456130");
     let msgArray = [];
+    let counter = 0;
     origin.members.forEach((m)=>{
       if (target.members.get(m.id)){
         if (inclBots == false && !m.user.bot){
           msgArray.push(m.username + " (" + m.id + ")");
+          counter++;
         }
         if (inclBots == true){
           msgArray.push(m.username + " (" + m.id + ")");
+          counter++;
+        }
+        if (counter >= 24){
+          counter = 0;
+          msg.channel.sendMessage(msgArray.join("\n"));
         }
       }
     });
-    let maxmsgs = Infinity;
-    let stringArray = msgArray.join("\n").split("");
-    while (stringArray.length > 0 && maxmsgs > 0){
-      if (stringArray.length > 1999){
-        for (let i = 1999; i > 0; i--){
-          if (stringArray[i] == " "){
-            msg.channel.sendMessage(stringArray.slice(0, i).join(""));
-            stringArray = stringArray.slice(i + 1);
-            maxmsgs--;
-            break;
-          }
-        }
-      }
-      if (stringArray.length < 2000){
-        msg.channel.sendMessage(stringArray.join(""));
-        maxmsgs--;
-      }
-    }
   }
     
   if (command == "sk?"){
