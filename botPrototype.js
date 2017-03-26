@@ -29,7 +29,8 @@ const shortcuts = new Map([
   ["nebula", "\u200b\:milky_way:"],
   ["complaint", "Please send all complaints to `/dev/null`!"],
   ["null", "\u200b"],
-  ["lugiaprophecy", "**Disturb not the harmony of fire, ice or lightning,\nlest these titans wreak destruction upon the world in which they clash.\nThough the water's great guardian shall arise to quell the fighting,\nalone its song will fail, and thus the earth shall turn to ash.\nO Chosen One, into thine hands bring together all three.\nTheir treasures combined tame the Beast of the Sea.\n\n            --Shamouti Prophecy**"]
+  ["lugiaprophecy", "**Disturb not the harmony of fire, ice or lightning,\nlest these titans wreak destruction upon the world in which they clash.\nThough the water's great guardian shall arise to quell the fighting,\nalone its song will fail, and thus the earth shall turn to ash.\nO Chosen One, into thine hands bring together all three.\nTheir treasures combined tame the Beast of the Sea.\n\n            --Shamouti Prophecy**"],
+  ["absol", "**Absol, the Disaster Pokémon. Absol live in steep mountainous regions, and rarely venture down into areas inhabited by humans, but should an Absol be seen by humans, it is said that catastrophe is soon to follow.**"]
 ]);
 
 const textReplace = new Map([
@@ -286,6 +287,17 @@ bot.on("message", msg => {
       }
     });
     msg.channel.sendMessage(numShared + " members are in SK! (" + (numShared * 100 / origin.memberCount) + "%)");
+  }
+    
+  if (command == "sk?"){
+    let user = msg.mentions.users.first();
+    let origin = msg.guild;
+    let target = spy.guilds.get("252525368865456130");
+    if (target.members.get(user.id)){
+      msg.channel.sendMessage(user + " is in SK!");
+    }else{
+      msg.channel.sendMessage(user + " is not in SK!");
+    }
   }
     
   if (command == "autoreactadd" || command == "ara") {
