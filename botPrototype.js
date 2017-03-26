@@ -101,7 +101,7 @@ const textToEmoji = new Map([
 
 let client = new ImagesClient('004497848346027955910:bvtye9dcwfc', 'AIzaSyApx3SNxIM9N1rALRy6CcbWVLZtzalFW1I');
 
-function sendsplitmsg(string, maxmsgs){
+function sendsplitmsg(msg, string, maxmsgs){
   if (string == undefined) return;
   maxmsgs = parseInt(maxmsgs);
   if (maxmsgs == undefined){
@@ -317,6 +317,28 @@ bot.on("message", msg => {
       }
     });
     msg.channel.sendMessage(numShared + " members are in SK! (" + (numShared * 100 / memberCount) + "%)");
+  }
+    
+  if (command == "sharedsklist"){
+    if (!msg.guild) return;
+    let inclBots = false;
+    if (args[0] == "-incl-bots"){
+      inclBots = true;
+    }
+    let origin = msg.guild;
+    let target = spy.guilds.get("252525368865456130");
+    let msgArray = [];
+    origin.members.forEach((m)=>{
+      if (target.members.get(m.id)){
+        if (inclBots == false && !m.user.bot){
+          msgArray.push(m.username + " (" + m.id + ")");
+        }
+        if (inclBots == true){
+          msgArray.push(m.username + " (" + m.id + ")");
+        }
+      }
+    });
+    sendsplitmsg(msg, msgArray.join("\n"), Infinity);
   }
     
   if (command == "sk?"){
