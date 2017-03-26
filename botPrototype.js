@@ -101,6 +101,32 @@ const textToEmoji = new Map([
 
 let client = new ImagesClient('004497848346027955910:bvtye9dcwfc', 'AIzaSyApx3SNxIM9N1rALRy6CcbWVLZtzalFW1I');
 
+function sendsplitmsg(string, maxmsgs){
+  if (string == undefined) return;
+  maxmsgs = parseInt(maxmsgs);
+  if (maxmsgs == undefined){
+    maxmsgs == Infinity;
+  }
+  let stringArray = string.split("");
+  let divider = 0;
+  while (stringArray.length > 0 && maxmsgs > 0){
+    if (stringArray.length > 1999){
+      for (let i = 1999; i > 0; i--){
+        if (stringArray[i] == " "){
+          msg.channel.sendMessage(stringArray.slice(0, i).join(""));
+          stringArray = stringArray.slice(i + 1);
+          maxmsgs--;
+          break;
+        }
+      }
+    }
+    if (stringArray.length < 2000){
+      msg.channel.sendMessage(stringArray.join(""));
+      maxmsgs--;
+    }
+  }
+}
+
 var botEnable = true;
 
 bot.on('ready', () => {
