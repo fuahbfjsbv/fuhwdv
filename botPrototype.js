@@ -336,12 +336,12 @@ bot.on("message", msg => {
         if (inclBots == true){
           msgArray.push(m.user.username + " (" + m.id + ")");
         }
-        while (msgArray.length > 0){
-          msg.channel.sendMessage(msgArray.slice(0, 25).join("\n"));
-          msgArray = msgArray.slice(25);
-        }
       }
     });
+    while (msgArray.length > 0){
+      msg.channel.sendMessage(msgArray.slice(0, 25).join("\n"));
+      msgArray = msgArray.slice(25);
+    }
   }
     
   if (command == "sk?"){
