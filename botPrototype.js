@@ -331,7 +331,7 @@ bot.on("message", msg => {
     origin.members.forEach((m)=>{
       if (target.members.get(m.id)){
         if (inclBots == false && !m.user.bot){
-          msgArray.push(m.username + " (" + m.id + ")");
+          msgArray.push(m.user.username + " (" + m.id + ")");
           counter++;
         }
         if (inclBots == true){
