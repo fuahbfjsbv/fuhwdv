@@ -341,8 +341,7 @@ bot.on("message", msg => {
         if (counter >= 25){
           counter = 0;
           msg.channel.sendMessage(msgArray.join("\n"));
-          delete msgArray;
-          new msgArray;
+          msgArray.length = 0;
         }
       }
     });
