@@ -267,6 +267,7 @@ bot.on("message", msg => {
   }
     
   if (command == "skcount"){
+    if (!msg.guild) return;
     let inclBots = false;
     if (args[0] == "-incl-bots"){
       inclBots = true;
