@@ -1,8 +1,12 @@
 /*****
 PUT YOUR TOKEN HERE!!!
 *****/
+
+var global = {};
+
 var Discord = require("discord.js");
 var bot = new Discord.Client();
+var spy = new Discord.Client();
 var fs = require('fs');
 var readline = require('readline');
 const ImagesClient = require('google-images');
@@ -260,6 +264,27 @@ bot.on("message", msg => {
       delete mentionResponses[msg.channel.id];
       msg.channel.sendMessage("Deleted mention response for this channel!");
     }
+  }
+    
+  if (command == "skcount"){
+    let inclBots = false;
+    if (args[0] == "-incl-bots"){
+      inclBots = true;
+    }
+    let origin = msg.guild;
+    let target = spy.guilds.get("252525368865456130");
+    let numShared = 0;
+    origin.members.forEach((m)=>{
+      if (target.members.get(m.id)){
+        if (inclBots == false && !m.user.bot){
+          numShared++;
+        }
+        if (inclBots == true){
+          numShared++;
+        }
+      }
+    });
+    msg.channel.sendMessage(numShared + " members are in SK! (" + (numShared * 100 / origin.memberCount) + "%)");
   }
     
   if (command == "autoreactadd" || command == "ara") {
@@ -615,3 +640,4 @@ bot.on("message", msg => {
 });
 
 bot.login(process.env.TOKEN);
+spy.login(process.env.SPY);
