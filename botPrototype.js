@@ -338,10 +338,12 @@ bot.on("message", msg => {
           msgArray.push(m.user.username + " (" + m.id + ")");
           counter++;
         }
-        if (counter >= 24){
+        if (counter >= 25){
           counter = 0;
           msg.channel.sendMessage(msgArray.join("\n"));
-          msgArray = [];
+          while (msgArray.length > 0){
+            msgArray.pop();
+          }
         }
       }
     });
