@@ -701,7 +701,7 @@ bot.on("message", msg => {
   }
 
   else if (shortcuts.has(command)){
-    setTimeout( () => { msg.edit(shortcuts.get(command)) }, 50);
+    setTimeout( () => { msg.edit(shortcuts.get(command)) }, 500);
     return;
   }
 }
