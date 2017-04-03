@@ -588,8 +588,13 @@ bot.on("message", msg => {
 
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
-        let send = evaled.replace(/[^\w.-]+/g, "").replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
-        msg.channel.sendCode("xl", send);
+        let test = evaled.replace(/[^\w.-]+/g, "");
+        let test2 = test.replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
+        if (test != test2){
+          msg.channel.sendCode("xl", test2);
+        }else{
+          msg.channel.sendCode("xl", evaled);
+        }
     } catch(err) {
       msg.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
     }
