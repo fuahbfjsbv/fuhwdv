@@ -619,7 +619,7 @@ bot.on("message", msg => {
   else if (command == "custeval"){
   try {
       for (let i = 0; i < args.length; i++){
-        if (custCode.has(args[i]){
+        if (custCode.has(args[i])){
             args[i] = custCode.get(args[i]);
         }
       }
