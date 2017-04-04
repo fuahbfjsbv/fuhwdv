@@ -619,7 +619,7 @@ bot.on("message", msg => {
   else if (command == "custeval"){
   try {
       var code = args.map((a) => {custCode.has(a) ? custCode.get(a) : a;}).join(" ");
-      msg.channel.sendMessage(code);
+      console.log(code);
       var evaled = eval(code);
 
       if (typeof evaled !== "string")
