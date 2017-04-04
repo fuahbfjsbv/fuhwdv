@@ -5,7 +5,7 @@ PUT YOUR TOKEN HERE!!!
 var global = {};
 
 const custCode = new Map([
-  ["AREUSURETHAT", "if"],
+  ["YIFF", "if"],
   ["OTHERWISE", "else"],
   ["RETURNTOSENDER", "return"],
   ["LOOPDELOOP", "for"],
