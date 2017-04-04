@@ -6,7 +6,7 @@ var global = {};
 
 const custCode = new Map([
   ["YIFF", "if"],
-  ["OTHERWISE", "else"],
+  ["RAWR", "else"],
   ["RETURNTOSENDER", "return"],
   ["LOOPDELOOP", "for"],
   ["DURING", "while"],
