@@ -4,6 +4,22 @@ PUT YOUR TOKEN HERE!!!
 
 var global = {};
 
+const custCode = new Map([
+  ["AREUSURETHAT", "if"],
+  ["OTHERWISE", "else"],
+  ["RETURNTOSENDER", "return"],
+  ["LOOPDELOOP", "for"],
+  ["DURING", "while"],
+  ["100%SURE", "true"],
+  ["NOWAYINKAY", "false"],
+  ["TRASHCAN", "delete"],
+  ["BUCKET", "let"],
+  ["F(X)", "function"],
+  ["TOOMUCHTOCHOOSE", "switch"],
+  ["CHOICE", "case"],
+  ["GOAWAY", "break"]
+]);
+
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var spy = new Discord.Client();
@@ -599,6 +615,25 @@ bot.on("message", msg => {
       msg.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
     }
   }
+    
+  else if (command == "custeval"){
+  try {
+      var code = args.map((a) => {custCode.has(a) ? (custCode.get(a) : a;)}).join(" ");
+      var evaled = eval(code);
+
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+        let test = evaled.replace(/[^\w.-]+/g, "");
+        let test2 = test.replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
+        if (test != test2){
+          msg.channel.sendCode("xl", test2);
+        }else{
+          msg.channel.sendCode("xl", evaled);
+        }
+    } catch(err) {
+      msg.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``);
+    }
+}
 
   else if (command == "prune"){
     if (isNaN(args[0])){
