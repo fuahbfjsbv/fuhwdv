@@ -618,7 +618,7 @@ bot.on("message", msg => {
     
   else if (command == "custeval"){
   try {
-      var code = args.map((a) => {custCode.has(a) ? custCode.get(a) : a;)}).join(" ");
+      var code = args.map((a) => {custCode.has(a) ? custCode.get(a) : a;}).join(" ");
       var evaled = eval(code);
 
       if (typeof evaled !== "string")
