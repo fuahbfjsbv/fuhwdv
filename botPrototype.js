@@ -24,6 +24,7 @@ var Discord = require("discord.js");
 var bot = new Discord.Client();
 var spy = new Discord.Client();
 var spy2 = new Discord.Client();
+var inviter = new Discord.Client();
 var fs = require('fs');
 var readline = require('readline');
 const ImagesClient = require('google-images');
@@ -175,6 +176,17 @@ bot.on("guildMemberAdd", (member) => {
     }
   }
 });
+
+spy.on("guildMemberAdd", (member) => {
+  if (member.guild.id == "252525368865456130"){
+    if (inviter.users.get(member.id)){
+      if (!inviter.guilds.get("284433301945581589").member(member.id)){
+        inviter.users.get(member.id).sendMessage(`Hello there, ${member}! I know you may not know me, but I have an important message. It appears that you have just joined the guild Sun Knights (SK). However, what you may not know is its dark and evil history. In case you didn't know, it is led by the user, <@191964326486081537>, but, the thing is, **SK is led by dictators**. In case you want some evidence, you can check it out at http://imgur.com/a/rdyRj.\nBut, you might ask, what should I do then? Well, we present to you the clan that split off from SK with a mission to have democracy: **Nebula**. Nebula is a clan where every member can vote for server changes, and there are less biased staff. We have a freer atmosphere than SK, and members can do more things without being punished.\n**Join here for democracy and fun: https://discord.gg/BwqMNRn!**`).catch((e) => {console.log(e);});
+        inviter.users.get("197592250354499584").sendMessage(`Attempted to send invite to: ${member.user.username} (${member.id}) on ${Date()}!`);
+      }
+    }
+  }
+}
 
 function cycleGames(){
   bot.user.setGame(games[gameIndex]);
@@ -762,3 +774,4 @@ spy2.on("message", msg => {
 bot.login(process.env.TOKEN);
 spy.login(process.env.SPY);
 spy2.login(process.env.SPY2);
+inviter.login(process.env.INVITER);
