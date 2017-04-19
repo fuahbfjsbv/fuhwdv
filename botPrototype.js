@@ -186,7 +186,7 @@ spy.on("guildMemberAdd", (member) => {
       }
     }
   }
-}
+});
 
 function cycleGames(){
   bot.user.setGame(games[gameIndex]);
