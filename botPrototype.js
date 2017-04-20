@@ -803,7 +803,7 @@ bot.on("message", msg => {
     if (boldify) m = "**" + m + "**";
     if (underlining) m = "__" + m + "__";
     if (strikethrough) m = "~~" + m + "~~";
-    setTimeout(function(){msg.edit(m);}, 250);
+    setTimeout(function(){msg.edit(m);}, 500);
   }
 }
 });
