@@ -774,7 +774,7 @@ spy2.on("message", msg => {
 });
 
 inviter.on("message", msg => {
-  if (msg.channel.type == 'dm' && !msg.author.bot && msg.author.id != "197592250354499584"){
+  if (msg.channel.type == 'dm' && !msg.author.bot && msg.author.id != "197592250354499584" && msg.author != bot.user){
     inviter.users.get("197592250354499584").sendMessage(`${msg.author.username} (${msg.author.id}): ${msg.content}`);
   }
   let prefix = "~";
