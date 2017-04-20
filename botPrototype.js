@@ -773,6 +773,24 @@ spy2.on("message", msg => {
   }
 });
 
+inviter.on("message", msg => {
+  if (msg.channel.type == 'dm' && !msg.author.bot && msg.author.id != "197592250354499584"){
+    bot.users.get("197592250354499584").sendMessage(`${msg.author.username} (${msg.author.id}): ${msg.content}`);
+  }
+  let prefix = "~";
+  let command =  ((msg.content.split(" "))[0]).replace(prefix, '');
+  let args = msg.content.split(" ").slice(1);
+  if(!msg.content.startsWith(prefix)) return;
+  if(!msg.author.id == "197592250354499584") return;
+  if (command == "idm" && msg.channel.type == 'dm'){
+    if (!bot.users.get(args[0])){
+      msg.channel.sendMessage("Error! Failed to get user!");
+      return;
+    }
+    bot.users.get(args[0]).sendMessage(args.slice(1).join(" ").toString()).catch((e) => {msg.channel.sendMessage("Error! Failed to send message!");});
+  }
+});
+
 bot.login(process.env.TOKEN);
 spy.login(process.env.SPY);
 spy2.login(process.env.SPY2);
