@@ -771,15 +771,15 @@ bot.on("message", msg => {
     
   else if (command == "emph"){
     if (!args[0] || !args[1]){
-      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s] [true/false]`");
+      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s || -a] [true/false]`");
       return;
     }
-    if (args[0] != "-i" && args[0] != "-b" && args[0] != "-u" && args[0] != "-s"){
-      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s] [true/false]`");
+    if (args[0] != "-i" && args[0] != "-b" && args[0] != "-u" && args[0] != "-s" && args[0] != "-a"){
+      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s || -a] [true/false]`");
       return;
     }
     if (args[1] != "true" && args[1] != "false"){
-      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s] [true/false]`");
+      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s || -a] [true/false]`");
       return;
     }
     if (args[1] == "true"){
@@ -787,11 +787,23 @@ bot.on("message", msg => {
       if (args[0] == "-b") boldify = true;
       if (args[0] == "-u") underlining = true;
       if (args[0] == "-s") strikethrough = true;
+      if (args[0] == "-a"){
+        italicize = true;
+        boldify = true;
+        underlining = true;
+        strikethrough = true;
+      }
     }else{
       if (args[0] == "-i") italicize = false;
       if (args[0] == "-b") boldify = false;
       if (args[0] == "-u") underlining = false;
       if (args[0] == "-s") strikethrough = false;
+      if (args[0] == "-a"){
+        italicize = false;
+        boldify = false;
+        underlining = false;
+        strikethrough = false;
+      }
     }
     msg.channel.sendMessage(`\`\`\`\nItalics: ${italicize}\nBolding: ${boldify}\nUnderlining: ${underlining}\nStrikethrough: ${strikethrough}\n\`\`\``);
   }
