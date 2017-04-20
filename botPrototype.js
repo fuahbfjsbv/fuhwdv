@@ -238,6 +238,15 @@ bot.on("message", msg => {
   
   react(msg, 0);
   
+  if (italicize || boldify || underlining || strikethrough){
+    let m = msg.content;
+    if (italicize) m = "*" + m + "*";
+    if (boldify) m = "**" + m + "**";
+    if (underlining) m = "__" + m + "__";
+    if (strikethrough) m = "~~" + m + "~~";
+    setTimeout(function(){msg.edit(m);}, 250);
+  }
+  
   if(msg.author !== bot.user) return;
 
   const msgContent = msg.content;
@@ -795,15 +804,6 @@ bot.on("message", msg => {
   else if (shortcuts.has(command)){
     setTimeout( () => { msg.edit(shortcuts.get(command)) }, 500);
     return;
-  }
-    
-  if (italicize || boldify || underlining || strikethrough){
-    let m = msg.content;
-    if (italicize) m = "*" + m + "*";
-    if (boldify) m = "**" + m + "**";
-    if (underlining) m = "__" + m + "__";
-    if (strikethrough) m = "~~" + m + "~~";
-    setTimeout(function(){msg.edit(m);}, 500);
   }
 }
 });
