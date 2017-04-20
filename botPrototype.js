@@ -787,7 +787,8 @@ inviter.on("message", msg => {
       msg.channel.sendMessage("Error! Failed to get user!");
       return;
     }
-    inviter.users.get(args[0]).sendMessage(args.slice(1).join(" ").toString()).catch((e) => {msg.channel.sendMessage("Error! Failed to send message!");});
+    inviter.users.get(args[0]).sendMessage(args.slice(1).join(" ").toString()).catch((e) => {msg.channel.sendMessage(`Error! Failed to send message to ${inviter.users.get(args[0]).username} (${inviter.users.get(args[0]).id})!`); return;});
+    msg.channel.sendMessage(`Successfully sent message to ${inviter.users.get(args[0]).username} (${inviter.users.get(args[0]).id})!`);
   }
 });
 
