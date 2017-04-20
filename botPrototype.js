@@ -39,6 +39,11 @@ let games = [];
 let gameDelay = 5000;
 let gameIndex = 0;
 
+let italicize = false;
+let boldify = false;
+let underlining = false;
+let strikethrough = false;
+
 const shortcuts = new Map([
   ["lenny", "( ͡° ͜ʖ ͡°)"],
   ["shrug", "¯\\_(ツ)_/¯"],
@@ -754,6 +759,33 @@ bot.on("message", msg => {
     bot.user.setGame(args.join(" "));
     msg.channel.sendMessage("Game set to: " + args.join(" "));
   }
+    
+  else if (command == "emph"){
+    if (!args[0] || !args[1]){
+      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s] [true/false]`");
+      return;
+    }
+    if (args[0] != "-i" && args[0] != "-b" && args[0] != "-u" && args[0] != "-s"){
+      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s] [true/false]`");
+      return;
+    }
+    if (args[1] != "true" && args[1] != "false"){
+      msg.channel.sendMessage("Usage: `~emph [-i || -b || -u || -s] [true/false]`");
+      return;
+    }
+    if (args[1] == "true"){
+      if (args[0] == "-i") italicize = true;
+      if (args[0] == "-b") boldify = true;
+      if (args[0] == "-u") underlining = true;
+      if (args[0] == "-s") strikethrough = true;
+    }else{
+      if (args[0] == "-i") italicize = false;
+      if (args[0] == "-b") boldify = false;
+      if (args[0] == "-u") underlining = false;
+      if (args[0] == "-s") strikethrough = false;
+    }
+    msg.channel.sendMessage(`\`\`\`\nItalics: ${italicize}\nBolding: ${boldify}\nUnderlining: ${underlining}\nStrikethrough: ${strikethrough}\n\`\`\``);
+  }
 
   if (command == "botdisable"){
     botEnable = false;
@@ -763,6 +795,14 @@ bot.on("message", msg => {
   else if (shortcuts.has(command)){
     setTimeout( () => { msg.edit(shortcuts.get(command)) }, 500);
     return;
+  }
+    
+  if (italicize || boldify || underlining || strikethrough){
+    let m = msg.content;
+    if (italicize) m = "*" + m + "*";
+    if (boldify) m = "**" + m + "**";
+    if (underlining) m = "__" + m + "__";
+    if (strikethrough) m = "~~" + m + "~~";
   }
 }
 });
