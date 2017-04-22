@@ -858,4 +858,4 @@ inviter.on("message", msg => {
 bot.login(process.env.TOKEN);
 spy.login(process.env.SPY);
 spy2.login(process.env.SPY2);
-inviter.login(process.env.INVITER);
+//inviter.login(process.env.INVITER);
