@@ -347,6 +347,23 @@ bot.on("message", msg => {
     }
   }
     
+  if (command == "skroles"){
+    if (!msg.mentions.users.first()){
+      msg.channel.sendMessage("Mention required!");
+      return;
+    }
+    if (!spy.guilds.get("252525368865456130").member(msg.mentions.users.first())){
+        msg.channel.sendMessage(msg.mentions.users.first() + " is not in SK!");
+        return;
+    }
+    let a = [];
+    spy.guilds.get("252525368865456130").member(msg.mentions.users.first()).roles.forEach((r)=>{
+      a.push(r.name);
+    });
+    msg.channel.sendMessage("\`\`\`\n" + a.join("\n") + "\n\`\`\`");
+    commandUsed = true;
+  }
+    
   if (command == "skcount"){
     if (!msg.guild) return;
     let inclBots = false;
