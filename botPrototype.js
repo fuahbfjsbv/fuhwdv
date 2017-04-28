@@ -227,7 +227,7 @@ var react = function (msg, reactNum){
 }
 
 bot.on("message", msg => {
-  if (msg.guild.id == "284433301945581589" && msg.author.id == "268231075011100672" && msg.embeds && msg.embeds[0].title == "Drone Encounter") msg.channel.sendMessage("!attack");
+  if (msg.guild.id == "284433301945581589" && msg.author.id == "268231075011100672" && msg.embeds && msg.embeds[0].title == "Drone Encounter" && msg.embeds[0].description.startsWith("A drone")) msg.channel.sendMessage("!attack");
   if (msg.author != bot.user){
     if (mentionCooling){
       return;
