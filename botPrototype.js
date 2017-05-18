@@ -227,6 +227,9 @@ var react = function (msg, reactNum){
 }
 
 bot.on("message", msg => {
+  if(msg.channel.id == '314509329669816321' && msg.content == '1'){
+    msg.channel.sendMessage('0');
+  }
   if (msg.author != bot.user){
     if (mentionCooling){
       return;
