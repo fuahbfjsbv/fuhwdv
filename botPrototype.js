@@ -25,6 +25,7 @@ var bot = new Discord.Client();
 var spy = new Discord.Client();
 var spy2 = new Discord.Client();
 var inviter = new Discord.Client();
+var friend = new Discord.Client();
 var fs = require('fs');
 var readline = require('readline');
 const ImagesClient = require('google-images');
@@ -664,7 +665,7 @@ bot.on("message", msg => {
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
         let test = evaled.replace(/[^\w.-]+/g, "");
-        let test2 = test.replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
+        let test2 = test.replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn").replace(new RegExp(process.env.FRIEND, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
         if (test != test2){
           msg.channel.sendCode("xl", test2);
         }else{
@@ -688,7 +689,7 @@ bot.on("message", msg => {
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
         let test = evaled.replace(/[^\w.-]+/g, "");
-        let test2 = test.replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
+        let test2 = test.replace(new RegExp(bot.token, 'g'), "Mtn_totally_not.fake_at.all_71Hn").replace(new RegExp(process.env.FRIEND, 'g'), "Mtn_totally_not.fake_at.all_71Hn");
         if (test != test2){
           msg.channel.sendCode("xl", test2);
         }else{
@@ -875,7 +876,23 @@ inviter.on("message", msg => {
   }
 });
 
+friend.on("ready", () => {
+  friend.user.setStatus("online");
+});
+
+friend.on("message", (msg) => {
+  if (msg.author != friend.user) return;
+  let prefix = "~";
+  let command = ((msg.content.split(" "))[0]).replace(prefix, '');
+  let args = msg.content.split(" ").slice(1);
+  if(!msg.content.startsWith(prefix)) return;
+  if (command == 'online'){
+    friend.user.setStatus('online');
+  }
+});
+
 bot.login(process.env.TOKEN);
 spy.login(process.env.SPY);
-spy2.login(process.env.SPY2);
+friend.login(process.env.FRIEND);
+//spy2.login(process.env.SPY2);
 //inviter.login(process.env.INVITER);
