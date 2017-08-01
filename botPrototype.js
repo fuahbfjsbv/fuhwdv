@@ -881,7 +881,7 @@ friend.on("ready", () => {
 });
 
 friend.on("message", (msg) => {
-  if (msg.author != friend.user) return;
+  if ((msg.author != friend.user) || (bot.user && (msg.author != bot.user))) return;
   let prefix = "~";
   let command = ((msg.content.split(" "))[0]).replace(prefix, '');
   let args = msg.content.split(" ").slice(1);
