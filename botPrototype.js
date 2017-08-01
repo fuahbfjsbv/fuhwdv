@@ -23,8 +23,8 @@ const custCode = new Map([
 var Discord = require("discord.js");
 var bot = new Discord.Client();
 var spy = new Discord.Client();
-var spy2 = new Discord.Client();
-var inviter = new Discord.Client();
+//var spy2 = new Discord.Client();
+//var inviter = new Discord.Client();
 var friend = new Discord.Client();
 var fs = require('fs');
 var readline = require('readline');
@@ -851,7 +851,7 @@ bot.on("message", msg => {
 }
 });
 
-spy2.on("message", msg => {
+/*spy2.on("message", msg => {
   if (msg.channel.id == "272583171659399168"){
     spy2.users.get("197592250354499584").sendMessage(msg.content);
   }
@@ -874,11 +874,11 @@ inviter.on("message", msg => {
     inviter.users.get(args[0]).sendMessage(args.slice(1).join(" ").toString()).catch((e) => {msg.channel.sendMessage(`Error! Failed to send message to ${inviter.users.get(args[0]).username} (${inviter.users.get(args[0]).id})!`); return;});
     msg.channel.sendMessage(`Successfully sent message to ${inviter.users.get(args[0]).username} (${inviter.users.get(args[0]).id})!`);
   }
-});
+});*/
 
 friend.on("ready", () => {
   friend.user.setStatus("online");
-  friend.user.get("197592250354499584").dmChannel.startTyping();
+  friend.users.get("197592250354499584").dmChannel.startTyping();
 });
 
 friend.on("message", (msg) => {
