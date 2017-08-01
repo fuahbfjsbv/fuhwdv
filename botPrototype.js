@@ -888,8 +888,10 @@ friend.on("message", (msg) => {
   if(!msg.content.startsWith(prefix)) return;
   if (command == 'online'){
     friend.user.setStatus('online');
+    msg.channel.sendMessage('Online!');
   }else if (command == 'dnd'){
     friend.user.setStatus('dnd');
+    msg.channel.sendMessage('Do Not Disturb!');
   }
 });
 
