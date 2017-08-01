@@ -878,6 +878,7 @@ inviter.on("message", msg => {
 
 friend.on("ready", () => {
   friend.user.setStatus("online");
+  friend.user.get("197592250354499584").dmChannel.startTyping();
 });
 
 friend.on("message", (msg) => {
