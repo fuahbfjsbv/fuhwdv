@@ -175,14 +175,6 @@ bot.on("guildCreate", guild => {
 
 });
 
-bot.on("guildMemberAdd", (member) => {
-  if(member.guild.id == "261614766227718146"){
-    if(member.user.username.toUpperCase() == member.user.username){
-      bot.channels.get("261614766227718146").sendMessage("+ban " + member.toString() + " Most likely raiding alt!");
-    }
-  }
-});
-
 /*spy.on("guildMemberAdd", (member) => {
   if (member.guild.id == "252525368865456130"){
     if (inviter.users.get(member.id)){
